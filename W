@@ -244,15 +244,6 @@ local function executeAllBypasses()
     totalBypasses = totalBypasses + bypassVMChecks()
     totalBypasses = totalBypasses + createStealthEnvironment()
     
-    local endTime = tick()
-    local executionTime = math.floor((endTime - startTime) * 1000)
-    
-    -- Print results to console
-    print("🎯 Anti-Cheat Bypass Complete!")
-    print("📊 Total Bypasses Applied: " .. totalBypasses)
-    print("⏱️  Execution Time: " .. executionTime .. "ms")
-    print("🛡️  Protection Status: ACTIVE")
-    
     return totalBypasses
 end
 
@@ -264,19 +255,8 @@ local function initialize()
         return executeAllBypasses()
     end)
     
-    if success then
-        -- Optional: Send notification if available
-        pcall(function()
-            if game:GetService("StarterGui"):GetCore("SendNotification") then
-                game:GetService("StarterGui"):SetCore("SendNotification", {
-                    Title = "Anti-Cheat Bypass",
-                    Text = "Auto-protection activated (" .. result .. " bypasses)",
-                    Duration = 5
-                })
-            end
-        end)
-    else
-        warn("❌ Anti-Cheat Bypass Failed: " .. tostring(result))
+    if not success then
+        warn("Anti-Cheat Bypass Failed: " .. tostring(result))
     end
 end
 
